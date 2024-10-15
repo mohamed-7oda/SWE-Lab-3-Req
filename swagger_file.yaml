@@ -1,0 +1,107 @@
+openapi: 3.0.0
+info:
+  title: Todo API
+  description: API for managing todos
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /add:
+    post:
+      summary: Add Matches
+      responses:
+        '200':
+          description: Add any New Matches
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    title:
+                      type: string
+                    scores:
+                      type: string
+                    location:
+                      type: string
+  /match:
+    get:
+      summary: Get All Available Matches
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                :
+                  type: boolean
+      responses:
+        '201':
+          description: Todo created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  title:
+                    type: string
+                  completed:
+                    type: boolean
+  /matches/{id}:
+    put:
+      summary: Update an existing match
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID of the match to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                completed:
+                  type: boolean
+    delete:
+      summary: Delete a todo
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID of the todo to delete
+      responses:
+        '204':
+          description: Todo deleted
+  /scores:
+    get:
+      responses:
+        '200':
+          description: Get Scores
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  title:
+                    type: string
+                  score:
+                    type: boolean
+
